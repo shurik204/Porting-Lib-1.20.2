@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import io.github.fabricators_of_create.porting_lib.event.common.AdvancementCallback;
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -17,7 +17,7 @@ public abstract class PlayerAdvancementsMixin {
 	private ServerPlayer player;
 
 	@Inject(method = "award", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/AdvancementRewards;grant(Lnet/minecraft/server/level/ServerPlayer;)V"))
-	public void port_lib$onAwardAdvancement(Advancement advancement, String criterionKey, CallbackInfoReturnable<Boolean> cir) {
-		AdvancementCallback.EVENT.invoker().onAdvancement(this.player, advancement);
+	public void port_lib$onAwardAdvancement(AdvancementHolder advancement, String string, CallbackInfoReturnable<Boolean> cir) {
+		AdvancementCallback.EVENT.invoker().onAdvancement(this.player, advancement.value());
 	}
 }

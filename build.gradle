@@ -18,7 +18,8 @@ version = project.mod_version
 group = project.maven_group
 
 String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
-String patch = buildNumber != null ? buildNumber : "99999"
+String patch = "01154"
+
 
 version = version.replace("<patch>", patch)
 
@@ -280,9 +281,9 @@ allprojects {
 	}
 
 	machete {
-		if (buildNumber == null) {
-			enabled = false
-		}
+//		if (buildNumber == null) {
+//			enabled = false
+//		}
 	}
 
 	tasks.withType(AbstractArchiveTask).configureEach {
@@ -298,10 +299,10 @@ allprojects {
 	publishing {
 		repositories {
 			maven {
-				url = "https://mvn.devos.one/snapshots/"
+				url = shurikMeMavenUrl
 				credentials {
-					username = System.getenv("MAVEN_USER")
-					password = System.getenv("MAVEN_PASS")
+					username = shurikMeMavenUser
+					password = shurikMeMavenPass
 				}
 				authentication {
 					basic(BasicAuthentication)

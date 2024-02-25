@@ -42,10 +42,10 @@ public class RecipeManagerMixin {
 	}
 
 	@WrapOperation(method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/crafting/RecipeHolder;value()Lnet/minecraft/world/item/crafting/Recipe;"))
-	public RecipeHolder<?> port_lib$nullCompute(Recipe<?> recipe, Operation<RecipeHolder<?>> recipeTypeOperation) {
+	public Recipe<?> port_lib$nullCompute(RecipeHolder<Recipe<?>> recipe, Operation<Recipe<?>> original) {
 		if (recipe == null)
 			return null;
-		return recipeTypeOperation.call(recipe);
+		return original.call(recipe);
 	}
 
 	@WrapOperation(method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V", at = @At(value = "INVOKE", target = "Ljava/util/Map;computeIfAbsent(Ljava/lang/Object;Ljava/util/function/Function;)Ljava/lang/Object;"))
